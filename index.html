@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoHome</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="header-top">
+                <h1 class="header-logo">AutoHome</h1>
+                <nav class="navbar">
+                    <a class="header-link" href="">About</a>
+                    <button class="login sign-up">Login as Producer</button>
+                    <button class="login sign-up">Login as Customer</button>
+                </nav>
+            </div>
+            <div class="header-bottom">
+                <div class="header-bottom-left">
+                    <h2 class="hero-main-text">
+                        Features
+                    </h2>
+                    <p class="hero-secondary-text">Control your home's lighting, climate, security, and entertainment
+                        with
+                        ease <br>
+                        Customize settings for each room in your home <br>
+                        Set schedules to automate your home's systems <br>
+                        Monitor your home's energy usage and reduce your energy bills <br>
+                        Receive alerts and notifications about important events in your home</p>
+                </div>
+                <img src="img/woman.jpeg" alt="An office" width="576px" height="240px">
+            </div>
+
+        </div>
+
+        <div class="customers-section">
+            <h2 class="information-header">Pricing</h2>
+
+            <div class="cards">
+                <div class="card">
+                    <img class="card-image" src="img/dollar.svg" alt="Lyft's Logo" width="144px" height="144px">
+                    <p>BASIC</p>
+                    <p>$99.99</p>
+                </div>
+                <div class="card">
+                    <img class="card-image" src="img/dollar.svg" alt="Lyft's Logo" width="144px" height="144px">
+                    <p>ADVANCED</p>
+                    <p>$199.99</p>
+
+                </div>
+                <div class=" card">
+                    <img class="card-image" src="img/dollar.svg" alt="Lyft's Logo" width="144px" height="144px">
+                    <p>PREMIUM</p>
+                    <p>$299.99</p>
+
+                </div>
+                <div class=" card">
+                    <img class="card-image" src="img/dollar.svg" alt="Lyft's Logo" width="144px" height="144px">
+                    <p>VIP</p>
+                    <p>$499.99</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <p class="quote-text">SOMETIMES WE MAKE THE PROCESS MORE COMPLICATED THAN WE NEED TO. <br> WE WILL NEVER
+                MAKE A
+                JOURNEY OF A THOUSAND MILES BY FRETTING ABOUT <br> HOW LONG IT WILL TAKE OR HOW HARD IT WILL BE. WE MAKE
+                THE
+                JOURNEY BY <br> TAKING EACH DAY STEP BY STEP AND THEN REPEATING IT AGAIN AND AGAIN <br> UNTIL WE REACH
+                OUR
+                DESTINATION.</p>
+            <p class="quote-owner">-Joseph B. Wirthlin</p>
+        </div>
+
+        <div class="call-to-action">
+            <div class="call-to-action-text">
+                It's time for your dream startup to become real!
+                <p class="call-to-action-subtext">Your dreams are only one click away. Click sign up to make your
+                    dreams come true.</p>
+            </div>
+            <button class="call-to-action-sign-up">About</button>
+        </div>
+
+        <div class="footer">
+            Copyright © Anon
+        </div>
+
+    </div>
+
+    <form class="modal" action="login.php" method="POST">
+        <span class="close">&times;</span>
+        <label for="email">Email or Username:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" name="login" class="sign-up">Login</button>
+    </form>
+
+</body>
+
+</html>
