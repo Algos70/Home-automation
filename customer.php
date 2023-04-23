@@ -1,29 +1,22 @@
 <?php
-//connects to the sql database
-$conn = mysqli_connect('localhost', 'algos', '123456', 'dbtest');
 
-//write query for all infos
-$sql = 'SELECT light, lightColor, tempature, sound, securityS, door, roomba, waterHeater FROM device';
 
-//make query and get result
-$result = mysqli_query($conn, $sql);
+$file = 'mockData.txt';
 
-//fetch the resulting rows as an array
-$infos = mysqli_fetch_all($result, MYSQLI_ASSOC);
+//get the data from the specified file
+$fullData = file_get_contents($file);
+$dataArray = explode(',', $fullData);
 
-//frees result from memory for good practice
-mysqli_free_result($result);
 
-//print_r($infos); //prints the array taken from the database
-//all the infos from the database, selected from $infos array
-$light = $infos[0]['light'];
-$color = $infos[0]['lightColor'];
-$tempature = $infos[0]['tempature'];
-$sound = $infos[0]['sound'];
-$securityS = $infos[0]['securityS'];
-$door = $infos[0]['door'];
-$roomba = $infos[0]['roomba'];
-$waterHeater = $infos[0]['waterHeater'];
+//mock data values
+$light = $dataArray[0];
+$color = $dataArray[1];
+$tempature = $dataArray[2];
+$sound = $dataArray[3];
+$securityS = $dataArray[4];
+$door = $dataArray[5];
+$roomba = $dataArray[6];
+$waterHeater = $dataArray[7];
 
 
 /*For all the if statements below, if a certain button is pressed then update the database */
@@ -31,114 +24,233 @@ $waterHeater = $infos[0]['waterHeater'];
 // If the button is clicked, update the database
 //mysqli_real_escape_string secures the input we want to send to the data base
 if (isset($_POST['light'])) {
-    $new_value = mysqli_real_escape_string($conn, !$light);
-    $new_sql = "UPDATE device SET light = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
+
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    // make changes to data
+    if ($dataArray[0] == 0) {
+        $dataArray[0] = 1;
     } else {
-        echo 'query error: ' . mysqli_error($conn);
+        $dataArray[0] = 0;
     }
-    //refresh the page to relod the database
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+
+
+    //refresh the page to relod
     header('Location: ./customer.php');
 }
 
 if (isset($_POST['sound'])) {
-    $new_value = mysqli_real_escape_string($conn, !$sound);
-    $new_sql = "UPDATE device SET sound = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    // make changes to data
+    if ($dataArray[3] == 0) {
+        $dataArray[3] = 1;
     } else {
-        echo 'query error: ' . mysqli_error($conn);
+        $dataArray[3] = 0;
     }
-    //refresh the page to relod the database
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    //refresh the page to relod 
     header('Location: ./customer.php');
 }
 
 
 if (isset($_POST['lock'])) {
-    $new_value = mysqli_real_escape_string($conn, !$door);
-    $new_sql = "UPDATE device SET door = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    // make changes to data
+    if ($dataArray[5] == 0) {
+        $dataArray[5] = 1;
     } else {
-        echo 'query error: ' . mysqli_error($conn);
+        $dataArray[5] = 0;
     }
-    //refresh the page to relod the database
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    //refresh the page to relod 
     header('Location: ./customer.php');
 }
 
 if (isset($_POST['roomba'])) {
-    $new_value = mysqli_real_escape_string($conn, !$roomba);
-    $new_sql = "UPDATE device SET roomba = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    // make changes to data
+    if ($dataArray[6] == 0) {
+        $dataArray[6] = 1;
     } else {
-        echo 'query error: ' . mysqli_error($conn);
+        $dataArray[6] = 0;
     }
-    //refresh the page to relod the database
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    //refresh the page to relod 
     header('Location: ./customer.php');
 }
 
 if (isset($_POST['heater'])) {
-    $new_value = mysqli_real_escape_string($conn, !$waterHeater);
-    $new_sql = "UPDATE device SET waterHeater = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    // make changes to data
+    if ($dataArray[7] == 0) {
+        $dataArray[7] = 1;
     } else {
-        echo 'query error: ' . mysqli_error($conn);
+        $dataArray[7] = 0;
     }
-    //refresh the page to relod the database
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    //refresh the page to relod 
     header('Location: ./customer.php');
 }
 
 //whatever is the input change the database accordingly for the color 
 if (isset($_POST['change-color'])) {
     if ($_POST['colorlist'] == 'red') {
-        $new_value = mysqli_real_escape_string($conn, 'red');
-        $new_sql = "UPDATE device SET lightColor = '$new_value'";
-        mysqli_query($conn, $new_sql);
+
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[1] = 'red';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     } else if ($_POST['colorlist'] == 'blue') {
-        $new_value = mysqli_real_escape_string($conn, 'blue');
-        $new_sql = "UPDATE device SET lightColor = '$new_value'";
-        mysqli_query($conn, $new_sql);
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[1] = 'blue';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     } else if ($_POST['colorlist'] == 'green') {
-        $new_value = mysqli_real_escape_string($conn, 'green');
-        $new_sql = "UPDATE device SET lightColor = '$new_value'";
-        mysqli_query($conn, $new_sql);
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[1] = 'green';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     }
-    //refresh the page to relod the database
+    //refresh the page to relod
     header('Location: ./customer.php');
 }
 
 //whatever is the input change the database accordingly for the security
 if (isset($_POST['security'])) {
     if ($_POST['sec'] == 'low') {
-        $new_value = mysqli_real_escape_string($conn, 'low');
-        $new_sql = "UPDATE device SET securityS = '$new_value'";
-        mysqli_query($conn, $new_sql);
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[4] = 'low';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     } else if ($_POST['sec'] == 'off') {
-        $new_value = mysqli_real_escape_string($conn, 'off');
-        $new_sql = "UPDATE device SET securityS = '$new_value'";
-        mysqli_query($conn, $new_sql);
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[4] = 'off';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     } else if ($_POST['sec'] == 'high') {
-        $new_value = mysqli_real_escape_string($conn, 'high');
-        $new_sql = "UPDATE device SET securityS = '$new_value'";
-        mysqli_query($conn, $new_sql);
+        // acquire lock
+        $fp = fopen($file, 'r+');
+        flock($fp, LOCK_EX);
+
+        $dataArray[4] = 'high';
+
+        // write updated data back to file
+        file_put_contents($file, implode(',', $dataArray));
+
+        // release lock
+        flock($fp, LOCK_UN);
+        fclose($fp);
     }
-    //refresh the page to relod the database
+    //refresh the page to relod 
     header('Location: ./customer.php');
 }
 
 //control air conditioner, later will be implemented
 if (isset($_POST['air'])) {
-    $new_value = mysqli_real_escape_string($conn, $_POST['temp']);
-    $new_sql = "UPDATE device SET tempature = '$new_value'";
-    if (mysqli_query($conn, $new_sql)) {
-        //success
-    } else {
-        echo 'query error: ' . mysqli_error($conn);
-        header('Location: ./customer.php');
-    }
+
+    // acquire lock
+    $fp = fopen($file, 'r+');
+    flock($fp, LOCK_EX);
+
+    $dataArray[2] = $_POST['temp'];
+
+    // write updated data back to file
+    file_put_contents($file, implode(',', $dataArray));
+
+    // release lock
+    flock($fp, LOCK_UN);
+    fclose($fp);
     header('Location: ./customer.php');
 }
 ?>
@@ -153,6 +265,7 @@ if (isset($_POST['air'])) {
     <title>AutoHome-Customer</title>
     <link rel="stylesheet" href="producer-styles.css">
     <script src="producer.js" defer></script>
+    <script src="displayCustomer.js" defer></script>
 </head>
 
 <body>
@@ -167,8 +280,10 @@ if (isset($_POST['air'])) {
                 <?php
                 //shows state of the light(wheter its on or off)
                 if ($light == 0) {
+                    echo '<img src="./img/display/lights-off.png" width="50px" height="50px" img/> </br>';
                     echo 'OFF';
                 } else {
+                    echo '<img src="./img/display/lights-on.png" width="50px" height="50px" img/> </br>';
                     echo 'ON';
                 }
 
@@ -180,6 +295,7 @@ if (isset($_POST['air'])) {
                     //shows state of the BUTTON
                     if ($light == 0) {
                         echo 'TURN ON';
+                        echo '';
                     } else {
                         echo 'TURN OFF';
                     }
@@ -194,10 +310,14 @@ if (isset($_POST['air'])) {
                 <?php
                 //change the button content 
                 if ($color == 'red') {
+                    echo '<img src="./img/display/red-light.png" width="50px" height="50px" img/> </br>';
                     echo 'RED';
                 } else if ($color == 'green') {
+                    echo '<img src="./img/display/green-light.png" width="50px" height="50px" img/> </br>';
+
                     echo 'GREEN';
                 } else if ($color == 'blue') {
+                    echo '<img src="./img/display/blue-light.png" width="50px" height="50px" img/> </br>';
                     echo 'BLUE';
                 }
 
@@ -213,10 +333,11 @@ if (isset($_POST['air'])) {
             </form>
         </div>
         <div class="card temp">
-            <p class="title">DESIRED TEMPERATURE</p>
+            <p class="title">ROOM TEMPERATURE</p>
             <p class="state">
                 <?php
                 //shows the current tempature
+                echo '<img src="./img/display/temprature.png" width="50px" height="50px" img/> </br>';
 
                 echo $tempature;
                 ?>
@@ -234,8 +355,12 @@ if (isset($_POST['air'])) {
                 <?php
                 //change the content to show wheter its on or of
                 if ($sound == 0) {
+                    echo '<img src="./img/display/sound-off.png" width="50px" height="50px" img/> </br>';
+
                     echo 'OFF';
                 } else {
+                    echo '<img src="./img/display/sound-on.png" width="50px" height="50px" img/> </br>';
+
                     echo 'ON';
                 }
                 ?>
@@ -260,10 +385,16 @@ if (isset($_POST['air'])) {
                 <?php
                 //change the button content 
                 if ($securityS == 'low') {
+                    echo '<img src="./img/display/security-middle.png" width="50px" height="50px" img/> </br>';
+
                     echo 'LOW';
                 } else if ($securityS == 'high') {
+                    echo '<img src="./img/display/security-high.png" width="50px" height="50px" img/> </br>';
+
                     echo 'HIGH';
                 } else if ($securityS == 'off') {
+                    echo '<img src="./img/display/security-off.png" width="50px" height="50px" img/> </br>';
+
                     echo 'OFF';
                 }
 
@@ -284,8 +415,12 @@ if (isset($_POST['air'])) {
                 <?php
                 //shows state of the door(wheter its on or off)
                 if ($door == 0) {
+                    echo '<img src="./img/display/door-unlocked.png" width="50px" height="50px" img/> </br>';
+
                     echo 'OPEN';
                 } else {
+                    echo '<img src="./img/display/door-locked.png" width="50px" height="50px" img/> </br>';
+
                     echo 'LOCKED';
                 }
 
@@ -311,8 +446,11 @@ if (isset($_POST['air'])) {
                 <?php
                 //shows state of the ROOMBA cleaning robot(wheter its on or off)
                 if ($roomba == 0) {
+                    echo '<img src="./img/display/charging.png" width="50px" height="50px" img/> </br>';
+
                     echo 'CHARGING';
                 } else {
+                    echo '<img src="./img/display/roomba.png" width="50px" height="50px" img/> </br>';
                     echo 'CLEANING';
                 }
 
@@ -337,8 +475,12 @@ if (isset($_POST['air'])) {
             <p class="state">
                 <?php
                 if ($waterHeater == 0) {
+                    echo '<img src="./img/display/heating-off.png" width="50px" height="50px" img/> </br>';
+
                     echo 'OFF';
                 } else {
+                    echo '<img src="./img/display/heating-on.png" width="50px" height="50px" img/> </br>';
+
                     echo 'HEATING WATER';
                 }
 

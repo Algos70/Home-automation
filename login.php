@@ -11,13 +11,14 @@ if (isset($_POST['login'])) {
     $customerEmail = 'a@gmail.com';
     $customerPw = '1234';
 
+
     if ($email === $customerEmail && $password === $customerPw) {
         echo "Zort not an admin";
         //redirect to the customer
         header("Location: ./customer.php");
     } else if (($email === $producerEmail && $password === $producerPw)) {
         echo 'Zort admin';
-        //redirect to producer
+        //redirect to the producer
         header("Location: ./producer.php");
     } else {
     }
@@ -44,6 +45,7 @@ if (isset($_POST['login'])) {
         <button onclick="window.location.href = 'index.html'" class="home"> Home Page </button>
 
     </div>
+    <div>a</div>
 </body>
 
 </html>
